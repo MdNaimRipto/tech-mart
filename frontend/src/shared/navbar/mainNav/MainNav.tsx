@@ -4,15 +4,19 @@ import logo from "@/assets/logo.png";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import Link from "next/link";
-import { Button, Tooltip } from "@mui/material";
+import { Button, Menu, MenuItem, Tooltip } from "@mui/material";
 import AccountMenu from "../AccountMenu";
 import { useGetWishlistsProductQuery } from "@/redux/features/wishlist/wishlistApi";
 import { useUserContext } from "@/context/AuthContext";
 import { GetCartLength } from "@/components/cartComponents/GetCartLength";
 import SearchBar from "./SearchBar";
+import { categoryList } from "@/components/common/categoryList/CategoryList";
+import { useState } from "react";
 
 const MainNav = () => {
   const { user, token } = useUserContext();
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const option = {
     userId: user?._id as string,
@@ -35,7 +39,49 @@ const MainNav = () => {
           />
         </a>
         <SearchBar />
-        <div className="hidden lg:flex items-center justify-evenly lg:w-[22%] xl:w-[20%]">
+        <div className="hidden lg:flex items-center justify-evenly lg:w-[32%] xl:w-[24%]">
+          {/* DropDown Here For Categories */}
+          <div className={`relative hidden lg:block`}>
+            <Button
+              sx={{
+                fontWeight: "bold",
+                fontSize: "12px",
+                color: "#f15700",
+                textTransform: "none",
+                border: `1px solid #f15700`,
+              }}
+              onClick={e => setAnchorEl(e.currentTarget)}
+              size="small"
+            >
+              Categories
+            </Button>
+
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={() => setAnchorEl(null)}
+            >
+              {categoryList?.map(cat => (
+                <MenuItem
+                  key={cat.value}
+                  onClick={() => {
+                    setAnchorEl(null);
+                  }}
+                  sx={{
+                    width: 220,
+                  }}
+                >
+                  <Link
+                    href={`/products?category=${cat.value}`}
+                    className="w-full h-full flex items-center gap-4"
+                  >
+                    <div className="w-6 h-6">{cat.icon}</div>
+                    <span className="text-xs">{cat.name}</span>
+                  </Link>
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
           <Tooltip title="Wishlist">
             <Link href="/user/wishlists" className="relative">
               <p className="absolute top-0 -right-1 text-xs bg-secondary text-black rounded-full w-4 h-4 text-center">
@@ -72,7 +118,49 @@ const MainNav = () => {
             </Button>
           </Link>
         </div>
-        <div className="block lg:hidden">
+        <div className="flex items-center gap-2 justify-end lg:hidden ">
+          {/* DropDown Here For Categories */}
+          <div className={`relative lg:hidden`}>
+            <Button
+              sx={{
+                fontWeight: "bold",
+                fontSize: "12px",
+                color: "#f15700",
+                textTransform: "none",
+                border: `1px solid #f15700`,
+              }}
+              onClick={e => setAnchorEl(e.currentTarget)}
+              size="small"
+            >
+              Categories
+            </Button>
+
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={() => setAnchorEl(null)}
+            >
+              {categoryList?.map(cat => (
+                <MenuItem
+                  key={cat.value}
+                  onClick={() => {
+                    setAnchorEl(null);
+                  }}
+                  sx={{
+                    width: 220,
+                  }}
+                >
+                  <Link
+                    href={`/products?category=${cat.value}`}
+                    className="w-full h-full flex items-center gap-4"
+                  >
+                    <div className="w-6 h-6">{cat.icon}</div>
+                    <span className="text-xs">{cat.name}</span>
+                  </Link>
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
           <AccountMenu smallIconSize="30px" largeIconSize="24px" />
         </div>
       </div>

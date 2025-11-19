@@ -37,7 +37,7 @@ const SideNav = () => {
 
   return (
     <div
-      className={`w-[96%] lg:w-full xl:w-[30%] z-10 ${responsiveStyle}  ${
+      className={`hidden xl:block w-[96%] lg:w-full xl:w-[30%] z-10 ${responsiveStyle}  ${
         sideNavOpen && "h-full"
       }`}
     >

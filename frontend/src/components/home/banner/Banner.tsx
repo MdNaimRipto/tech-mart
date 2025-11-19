@@ -8,7 +8,7 @@ const Banner = () => {
   return (
     <div className="flex flex-col xl:flex-row gap-[15px] md:gap-[10px] xl:gap-[15px] mt-4 mb-16 relative container px-4">
       <SideNav />
-      <div className="flex flex-col md:flex-row gap-[15px] md:gap-[10px] xl:gap-[15px] w-full mt-16 xl:mt-0">
+      <div className="flex flex-col md:flex-row gap-[15px] md:gap-[10px] xl:gap-[15px] w-full">
         <div className="w-full h-[620px] md:h-auto">
           <BannerSlider />
         </div>
