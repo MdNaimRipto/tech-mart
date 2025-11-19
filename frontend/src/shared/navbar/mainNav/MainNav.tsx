@@ -30,14 +30,14 @@ const MainNav = () => {
   return (
     <div className="bg-[#e7e7e7] sticky top-0 z-50">
       <div className="flex items-center justify-between h-18 py-3 container px-4 xl:px-0">
-        <a href="/" className="h-full w-2/5 md:w-1/5 lg:w-[16%]">
+        <Link href="/" className="h-full w-2/5 md:w-1/5 lg:w-[16%]">
           <Image
             src={logo}
             alt="Website-Logo"
             priority={true}
             className="w-full"
           />
-        </a>
+        </Link>
         <SearchBar />
         <div className="hidden lg:flex items-center justify-evenly lg:w-[32%] xl:w-[24%]">
           {/* DropDown Here For Categories */}
